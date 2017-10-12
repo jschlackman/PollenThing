@@ -5,7 +5,7 @@
  *  Version: 1.0
  *  Date: 2017-10-12
  *
- *  Latest version & ReadMe: https://github.com/jschlackman/PollenSensor
+ *  Latest version & ReadMe: https://github.com/jschlackman/PollenThing
  *
  */
 metadata {
