@@ -98,8 +98,6 @@ def uninstalled() {
 
 // handle commands
 def poll() {
-	log.debug("Getting pollen data for location: ${location.name}")
-
 	def pollenZip = null
 
 	// Use hub zipcode if user has not defined their own
@@ -109,6 +107,7 @@ def poll() {
 		pollenZip = location.zipCode
 	}
 	
+	log.debug("Getting pollen data for ZIP: ${pollenZip}")
 
 	// Set up the Pollen.com API query
 	def params = [
