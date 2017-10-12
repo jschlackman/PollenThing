@@ -7,7 +7,7 @@ A SmartThings virtual device type handler (DTH) for retrieving pollen index data
 1. Install & publish the DTH into the **My Device Handlers** section of the SmartThings IDE via [GitHub integration](http://docs.smartthings.com/en/latest/tools-and-ide/github-integration.html#setup) (recommended), or the via the old fashioned way of pasting the code into the **Create New Device Handler** > **From Code** window.
 
 2. Go to the **My Devices** section of the IDE and click **New Device** to create a new device using the new DTH:
-    1. **Name**: enter a readable name such as 'Air Quality'
+    1. **Name**: enter a readable name such as 'Pollen Index'
     2. **Device Network Id**: enter any short string of characters not already in use by another device.
     3. **Type**: pick **Pollen Virtual Sensor** from the dropdown (it will be near the bottom of the list).
     4. **Version**: Published
