@@ -11,19 +11,19 @@
 metadata {
 	definition (name: "Pollen Virtual Sensor", namespace: "jschlackman", author: "james@schlackman.org") {
 		capability "Sensor"
-        capability "Polling"
+		capability "Polling"
 
 		attribute "index", "number"
-        attribute "category", "string"
-        attribute "triggers", "string"
-        attribute "location", "string"
+		attribute "category", "string"
+		attribute "triggers", "string"
+		attribute "location", "string"
 
 		command "refresh"
 	}
 
 	preferences {
 		input name: "zipCode", type: "text", title: "Zip Code (optional)", required: false
-        input name: "about", type: "paragraph", element: "paragraph", title: "Pollen Virtual Sensor 1.0", description: "By James Schlackman <james@schlackman.org>\n\nData source: Pollen.com"
+		input name: "about", type: "paragraph", element: "paragraph", title: "Pollen Virtual Sensor 1.0", description: "By James Schlackman <james@schlackman.org>\n\nData source: Pollen.com"
 	}
 
 	tiles(scale: 2) {
@@ -33,18 +33,18 @@ metadata {
 			state "default", label: "", action: "refresh", icon:"st.secondary.refresh"
 		}
 
-        // Pollen index tile for Things view
+		// Pollen index tile for Things view
 		standardTile("mainTile", "device.index", width: 2, height: 2, decoration: "flat", canChangeIcon: true) {
 			state "default", label:'${currentValue}', icon: "st.Outdoor.outdoor23", // Defaults to grass icon from ST Outdoor category
-                backgroundColors:[
-                    [value: 1.2, color: "#90d2a7"],
-                    [value: 3.6, color: "#44b621"],
-                    [value: 6, color: "#f1d801"],
-                    [value: 8.4, color: "#d04e00"],
-                    [value: 10.8, color: "#bc2323"],
-                ]
-        	}
-            
+				backgroundColors:[
+					[value: 1.2, color: "#90d2a7"],
+					[value: 3.6, color: "#44b621"],
+					[value: 6, color: "#f1d801"],
+					[value: 8.4, color: "#d04e00"],
+					[value: 10.8, color: "#bc2323"],
+				]
+			}
+			
 		// Index category
 		standardTile("category", "device.category", width: 4, height: 2, decoration: "flat") {
 			state "default", label:'Category: ${currentValue}'
@@ -52,14 +52,14 @@ metadata {
 
 		standardTile("index", "device.index", width: 2, height: 2, decoration: "flat") {
 			state "default", label:'${currentValue}',
-                backgroundColors:[
-                    [value: 1.2, color: "#90d2a7"],
-                    [value: 3.6, color: "#44b621"],
-                    [value: 6, color: "#f1d801"],
-                    [value: 8.4, color: "#d04e00"],
-                    [value: 10.8, color: "#bc2323"],
-                ]
-        	}
+				backgroundColors:[
+					[value: 1.2, color: "#90d2a7"],
+					[value: 3.6, color: "#44b621"],
+					[value: 6, color: "#f1d801"],
+					[value: 8.4, color: "#d04e00"],
+					[value: 10.8, color: "#bc2323"],
+				]
+			}
 
 
 		// Top allergens
@@ -84,7 +84,7 @@ def parse(String description) {
 }
 
 def installed() {
-    //runEvery1Hour(poll)
+	//runEvery1Hour(poll)
 	poll()
 }
 
@@ -124,32 +124,32 @@ def poll() {
 		// Parse the periods data array
 			resp.data.Location.periods.each {period ->
 				
-                // Only interested in today's forecast
-                if (period.Type == 'Today') {
-                	
-                    // Pollen index
-                    send(name: "index", value: period.Index)
-                    
-                    def catName = ""
-                    def indexNum = period.Index.toFloat()
-                    
-                    // Set the category according to index thresholds
-                    if (indexNum < 2.5) {catName = "Low"}
-                    else if (indexNum < 4.9) {catName = "Low-Medium"}
-                    else if (indexNum < 7.3) {catName = "Medium"}
-                    else if (indexNum < 9.7) {catName = "Medium-High"}
-                    else if (indexNum < 12) {catName = "High"}
-                    else {catName = "Unknown"}
-                
-                	send(name: "category", value: catName)
-                    
-                    // Build the list of allergen triggers
-                    def triggersList = period.Triggers.inject([]) { result, entry ->
-    					result << "${entry.Name}"
+				// Only interested in today's forecast
+				if (period.Type == 'Today') {
+					
+					// Pollen index
+					send(name: "index", value: period.Index)
+					
+					def catName = ""
+					def indexNum = period.Index.toFloat()
+					
+					// Set the category according to index thresholds
+					if (indexNum < 2.5) {catName = "Low"}
+					else if (indexNum < 4.9) {catName = "Low-Medium"}
+					else if (indexNum < 7.3) {catName = "Medium"}
+					else if (indexNum < 9.7) {catName = "Medium-High"}
+					else if (indexNum < 12) {catName = "High"}
+					else {catName = "Unknown"}
+				
+					send(name: "category", value: catName)
+					
+					// Build the list of allergen triggers
+					def triggersList = period.Triggers.inject([]) { result, entry ->
+						result << "${entry.Name}"
 					}.join(", ")
-                    
-                    send(name: "triggers", value: triggersList)
-                }
+					
+					send(name: "triggers", value: triggersList)
+				}
 
 				// Forecast location
 				send(name: "location", value: resp.data.Location.DisplayLocation)
