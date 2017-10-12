@@ -35,3 +35,7 @@ The attributes available from the device are:
 | location | String | City or area name for the reported data, with 2-letter state code. May also contain basic error messages when data is unavailable from the API. |
 
 You can view the current values for any of these on the **Recently** tab for the device in the SmartThings mobile app.
+
+## Acknowledgements
+
+* Thanks to [arsaboo](https://github.com/arsaboo/) for sharing the method for querying the Pollen.com API methods in his HomeAssistant config.
