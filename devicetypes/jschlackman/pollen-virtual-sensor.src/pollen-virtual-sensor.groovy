@@ -84,7 +84,7 @@ def parse(String description) {
 }
 
 def installed() {
-	//runEvery1Hour(poll)
+	runEvery1Hour(poll)
 	poll()
 }
 
