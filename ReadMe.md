@@ -1,6 +1,8 @@
-# Pollen Virtual Sensor
+# Pollen Virtual Sensor (NO LONGER SUPPORTED)
 
 A SmartThings virtual device type handler (DTH) for retrieving pollen index data from [Pollen.com](https://www.pollen.com/).
+
+**This DTH was designed for the now-retired SmartThings Classic app and does not function correctly in the new SmartThings app.** It would require a complete rewrite to get it to work again and I have no plans to reimplement it at this time.
 
 ## Setup
 
